@@ -201,6 +201,7 @@ vim.keymap.set("n", "<leader>fy", builtin.autocommands, {})
 vim.keymap.set("n", "<leader>fz", builtin.command_history, {})
 vim.keymap.set("n", "<leader>fh", ":Telescope help_tags theme=ivy<CR>")
 vim.keymap.set("n", "<leader>fm", ":Telescope marks theme=ivy<CR>")
+vim.keymap.set("n", "<leader>fw", ":Telescope buffers theme=ivy<CR>")
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep theme=ivy<CR>")
 vim.keymap.set("n", "<leader>fd", ":Telescope diagnostics theme=ivy<CR>")
 vim.keymap.set("n", "<leader>fu", ":Telescope autocommands theme=ivy<CR>")
@@ -336,7 +337,7 @@ require("mason-lspconfig").setup({
 		"lua_ls",
 		"rust_analyzer",
 		"quick_lint_js",
-		"eslint",
+		-- "eslint",
 		"ts_ls",
 		"html",
 		"lwc_ls",
@@ -491,8 +492,14 @@ lspconfig.ts_ls.setup({
 		client.server_capabilities.documentRangeFormattingProvider = false
 	end,
 })
+lspconfig.pylsp.setup({
+	capabilities = capabilities,
+	settings = {
+		pylsp = { plugins = { pycodestyle = { maxLineLength = 120 } } },
+	},
+})
 lspconfig.quick_lint_js.setup({ capabilities = capabilities })
-lspconfig.eslint.setup({ capabilities = capabilities })
+-- lspconfig.eslint.setup({ capabilities = capabilities })
 lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.html.setup({ capabilities = capabilities })
 lspconfig.lwc_ls.setup({ capabilities = capabilities })
@@ -502,7 +509,6 @@ lspconfig.volar.setup({ capabilities = capabilities })
 lspconfig.angularls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({ capabilities = capabilities })
 lspconfig.sqls.setup({ capabilities = capabilities })
-lspconfig.pylsp.setup({ capabilities = capabilities })
 lspconfig.emmet_ls.setup({ capabilities = capabilities })
 lspconfig.gopls.setup({ capabilities = capabilities })
 lspconfig.dartls.setup({ capabilities = capabilities })
@@ -896,3 +902,22 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufEnter" }, {
 	end,
 })
 
+vim.api.nvim_create_user_command("DeleteFile", function()
+	local file = vim.fn.expand("%:p") -- Get the full path of the current file
+	if vim.fn.confirm("Delete " .. file .. "?", "&Yes\n&No", 2) == 1 then
+		vim.fn.delete(file) -- Delete the file
+		vim.cmd("bd") -- Close the buffer
+	end
+end, {})
+
+vim.api.nvim_create_user_command("RenameFile", function(opts)
+	local old_name = vim.fn.expand("%")
+	local new_name = opts.args
+	if vim.fn.rename(old_name, new_name) == 0 then
+		vim.cmd("e " .. new_name)
+		vim.cmd("bwipeout " .. old_name)
+		print("Renamed " .. old_name .. " to " .. new_name)
+	else
+		print("Failed to rename " .. old_name)
+	end
+end, { nargs = 1 })
