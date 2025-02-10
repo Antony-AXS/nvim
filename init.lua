@@ -495,7 +495,7 @@ lspconfig.ts_ls.setup({
 lspconfig.pylsp.setup({
 	capabilities = capabilities,
 	settings = {
-		pylsp = { plugins = { pycodestyle = { maxLineLength = 120 } } },
+		pylsp = { plugins = { pycodestyle = { maxLineLength = 150 } } },
 	},
 })
 lspconfig.quick_lint_js.setup({ capabilities = capabilities })
@@ -536,7 +536,15 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.htmlbeautifier,
 		null_ls.builtins.formatting.prettier.with({
-			filetypes = { "javascript", "typescript", "javascriptreact", "css", "json", ".prettierrc" },
+			filetypes = {
+				"css",
+				"json",
+				"javascript",
+				"typescript",
+				".prettierrc",
+				"javascriptreact",
+				"typescriptreact",
+			},
 			method = { FORMATTING, RANGE_FORMATTING },
 			-- generator_opts = {
 			-- 	command = "prettier",
