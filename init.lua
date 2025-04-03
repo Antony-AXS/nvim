@@ -929,3 +929,15 @@ vim.api.nvim_create_user_command("RenameFile", function(opts)
 		print("Failed to rename " .. old_name)
 	end
 end, { nargs = 1 })
+
+-- keymaps to mark the last line cursor was in before going to the very top or very bottom of the buffer
+
+vim.keymap.set("n", "gg", function()
+	vim.api.nvim_exec2("mark l", { output = false })
+	vim.api.nvim_exec2("1", { output = false })
+end, {})
+
+vim.keymap.set("n", "G", function()
+	vim.api.nvim_exec2("mark l", { output = false })
+	vim.api.nvim_exec2("normal! G", { output = false })
+end, {})
