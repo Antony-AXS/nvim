@@ -375,9 +375,15 @@ require("mason-tool-installer").setup({
 		-- you can turn off/on auto_update per tool
 		{ "bash-language-server", auto_update = true },
 
+		-- you can do conditional installing
+		{
+			"gopls",
+			condition = function()
+				return not os.execute("go version")
+			end,
+		},
 		"lua-language-server",
 		"vim-language-server",
-		"gopls",
 		"stylua",
 		"shellcheck",
 		"editorconfig-checker",
@@ -393,9 +399,8 @@ require("mason-tool-installer").setup({
 		"luacheck",
 		"misspell",
 		"revive",
-		"shellcheck",
-		"shfmt",
 		"staticcheck",
+		"shellcheck",
 		"shellharden",
 		"shfmt",
 		"yamlfmt",
