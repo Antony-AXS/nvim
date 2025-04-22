@@ -37,7 +37,7 @@ return {
 		vim.keymap.set("n", "<leader>it", Indicator.indicator_event_activate, {})
 		vim.keymap.set("n", "<leader>ir", Indicator.indicator_event_deactivate, {})
 
-		vim.keymap.set("n", "<leader>iq", Indicator.window_highlight_event_activate, {})
-		vim.keymap.set("n", "<leader>iw", Indicator.window_highlight_event_deactivate, {})
+		vim.keymap.set("n", "<leader>iw", Indicator.window_highlight_event_activate, {})
+		vim.keymap.set("n", "<leader>iq", Indicator.window_highlight_event_deactivate, {})
 	end,
 }
