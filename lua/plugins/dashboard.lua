@@ -1,7 +1,6 @@
 return {
-	"nvimdev/dashboard-nvim",
+	"Antony-AXS/dashboard-nvim",
 	event = "VimEnter",
-	lazy = true,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local ascii = require("ascii.headers")
@@ -28,7 +27,7 @@ return {
 							local open_cmd_table = {
 								Linux = "xdg-open",
 								macOS = "open",
-								Windows = "explorer.exe"
+								Windows = "explorer.exe",
 							}
 
 							open_cmd = open_cmd_table[sysname]
