@@ -24,6 +24,12 @@ return {
 						cterm_color = "65",
 						name = "ts",
 					},
+					css = {
+						icon = "",
+						color = "#937af5",
+						cterm_color = "65",
+						name = "css",
+					},
 					cpp = {
 						icon = "",
 						color = "#937af5",
