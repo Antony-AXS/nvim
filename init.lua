@@ -730,6 +730,12 @@ require("nvim-treesitter.configs").setup({
 
 vim.cmd.colorscheme("catppuccin")
 
+vim.cmd([[
+  highlight LineNr guifg=#C4913A gui=bold   " Color: Satin Sheen Gold
+  highlight LineNrAbove guifg=#708090       " Color: Slate Grey
+  highlight LineNrBelow guifg=#708090       " Color: Slate Grey
+]])
+
 vim.api.nvim_create_user_command("Cppath", function()
 	local path = vim.fn.expand("%:p")
 	vim.fn.setreg("+", path)
