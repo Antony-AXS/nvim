@@ -941,14 +941,12 @@ vim.api.nvim_create_user_command("RenameFile", function(opts)
 	end
 end, { nargs = 1 })
 
--- keymaps to mark the last line cursor was in before going to the very top or very bottom of the buffer
-
-vim.keymap.set("n", "gg", function()
-	vim.api.nvim_exec2("mark l", { output = false })
-	vim.api.nvim_exec2("1", { output = false })
-end, {})
-
-vim.keymap.set("n", "G", function()
-	vim.api.nvim_exec2("mark l", { output = false })
-	vim.api.nvim_exec2("normal! G", { output = false })
-end, {})
+-- Keymaps to mark the cursor's current position before executing the following commands.
+-- This allows you to return to the marked position after the command is executed (if desired).
+local cursor_track_cmds = { "gg", "G", "vap" }
+for _, value in ipairs(cursor_track_cmds) do
+	vim.keymap.set("n", value, function()
+		vim.api.nvim_exec2("mark l", { output = false }) -- Mark the current cursor position as 'l'
+		vim.api.nvim_exec2("normal!" .. " " .. value, { output = false }) -- Execute the command
+	end, {})
+end
