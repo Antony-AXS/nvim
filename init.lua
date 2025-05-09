@@ -943,10 +943,23 @@ end, { nargs = 1 })
 
 -- Keymaps to mark the cursor's current position before executing the following commands.
 -- This allows you to return to the marked position after the command is executed (if desired).
+
 local cursor_track_cmds = { "gg", "G", "vap" }
+
 for _, value in ipairs(cursor_track_cmds) do
 	vim.keymap.set("n", value, function()
-		vim.api.nvim_exec2("mark l", { output = false }) -- Mark the current cursor position as 'l'
-		vim.api.nvim_exec2("normal!" .. " " .. value, { output = false }) -- Execute the command
-	end, {})
+		local cur_pos = vim.api.nvim_win_get_cursor(0)
+		vim.api.nvim_set_var("last_cursor_pos", cur_pos)
+
+		vim.api.nvim_exec2("mark l", { output = false })
+		vim.api.nvim_exec2("normal!" .. " " .. value, { output = false })
+	end, { silent = true })
 end
+
+-- Keymap to jump to the exact line and column the cursor was at before executing the tracked commands
+vim.keymap.set("n", "<leader>ll", function()
+	local last_pos = vim.api.nvim_get_var("last_cursor_pos")
+	if last_pos then
+		vim.api.nvim_win_set_cursor(0, last_pos)
+	end
+end, { noremap = true, silent = true })
