@@ -944,7 +944,7 @@ end, { nargs = 1 })
 -- Keymaps to mark the cursor's current position before executing the following commands.
 -- This allows you to return to the marked position after the command is executed (if desired).
 
-local cursor_track_cmds = { "gg", "G", "vap" }
+local cursor_track_cmds = { "gg", "G", "vap", "v{", "v}", "v/{", "v/}" }
 
 for _, value in ipairs(cursor_track_cmds) do
 	vim.keymap.set("n", value, function()
