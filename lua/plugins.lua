@@ -28,12 +28,17 @@ return {
 		},
 	},
 	{
-		"williamboman/mason.nvim",
+		"neovim/nvim-lspconfig",
+	},
+	{
+		"mason-org/mason.nvim",
+		branch = "v1.x",
 		lazy = true,
 		event = "VeryLazy",
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
+		branch = "v1.x",
 		opts = {
 			auto_install = true,
 		},
@@ -50,7 +55,7 @@ return {
 		"jay-babu/mason-null-ls.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			"williamboman/mason.nvim",
+			"mason-org/mason.nvim",
 			"nvimtools/none-ls.nvim",
 		},
 		config = function()
