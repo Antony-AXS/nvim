@@ -10,6 +10,7 @@ return {
 			scope = { enabled = false },
 			exclude = {
 				filetypes = {
+					"text",
 					"help",
 					"alpha",
 					"dashboard",
