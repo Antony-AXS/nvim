@@ -19,9 +19,15 @@ return {
 					dark = "frappe",
 				},
 				transparent_background = true,
+				show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
+				float = {
+					transparent = true, -- enable transparent floating windows
+					solid = false, -- use solid styling for floating windows, see |winborder|
+				},
 				styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
 					comments = { "italic" }, -- Change the style of comments
-					conditionals = { --[["italic"]] },
+					conditionals = { --[["italic"]]
+					},
 					loops = {},
 					functions = { "bold" },
 					keywords = {},
